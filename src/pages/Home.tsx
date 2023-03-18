@@ -3,11 +3,13 @@ import React from 'react'
 import HomeCard from '../components/Cards/HomeCard'
 import Header from '../components/Header'
 import QrComponent from '../components/QrComponent'
+import ConnectDapp from '../components/modals/ConnectDapp'
 function Home() {
+  
   return (
     <div className='pt-28 justify-evenly px-20'>
        <div className='max-w-[80vw]'>
-      <Header/>
+      <Header />
        </div>
        <div className='flex w-[80vw] '>
        <div style={{
@@ -27,6 +29,7 @@ function Home() {
        </div>
       <QrComponent/>
        </div>
+      
        
       
     </div>

@@ -3,7 +3,9 @@ import Header from '../components/Header'
 import QrComponent from '../components/QrComponent'
 import { MdEdit } from 'react-icons/md'
 import {FiMail} from 'react-icons/fi'
+import ConnectDapp from '../components/modals/ConnectDapp'
 function Profile() {
+   
   return (
     <div className='pt-28 justify-evenly px-20'>
         <div className='max-w-[80vw]'>
@@ -35,7 +37,9 @@ function Profile() {
         <QrComponent/>
 
         </div>
+       
         </div>
+
 
   )
 }

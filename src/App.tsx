@@ -6,13 +6,15 @@ import Home from './pages/Home';
 import Footer from './components/Footer';
 import Profile from './pages/Profile';
 import Simple from './components/modals/Base';
+import ConnectDapp from './components/modals/ConnectDapp';
 
 function App() {
+ 
   return (
     <div className=''>
 <Navbar/>
-<Profile/>
-<Simple children={<></>} isOpen={false}/>
+{/* <Profile/> */}
+<Home/>
 <Footer/>
     </div>
   );

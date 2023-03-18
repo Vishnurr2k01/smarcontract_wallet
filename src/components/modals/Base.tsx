@@ -16,6 +16,7 @@ function Simple({children,isOpen}:{children:any;isOpen:boolean}) {
   }}
   shouldCloseOnOverlayClick={true}
   closeTimeoutMS={2000}
+  
    isOpen={isOpen}>
     <div className='bg-[#F8F9FC] p-4 rounded-2xl'>
         {children}
