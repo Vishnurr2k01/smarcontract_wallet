@@ -14,6 +14,7 @@ function Navbar() {
                 <h2 className='text-white text-2xl'>100 BANK</h2>
             </div>
             <Toggle/>
+            <div className='h-20 w-20 bg-gray-500 rounded-full'></div>
         </div>
     </div>
   )
