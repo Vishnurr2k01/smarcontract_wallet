@@ -1,6 +1,7 @@
 import React from 'react'
 import {BsFuelPump} from 'react-icons/bs'
 import Toggle from './Buttons/Toggle'
+import { Link } from 'react-router-dom'
 function Navbar() {
   return (
     <div className='bg-[#231F20] p-4 flex justify-between fixed w-screen'>
@@ -14,7 +15,9 @@ function Navbar() {
                 <h2 className='text-white text-2xl'>100 BANK</h2>
             </div>
             <Toggle/>
+            <Link to='/profile'>
             <div className='h-20 w-20 bg-gray-500 rounded-full'></div>
+              </Link>
         </div>
     </div>
   )

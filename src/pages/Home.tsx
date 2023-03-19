@@ -7,13 +7,14 @@ import ConnectDapp from '../components/modals/ConnectDapp'
 function Home() {
   
   return (
-    <div className='pt-28 justify-evenly px-20'>
+    <div className='py-28 justify-evenly px-20'>
        <div className='max-w-[80vw]'>
       <Header />
        </div>
        <div className='flex w-[80vw] '>
        <div style={{
-        border:'2px solid black'
+        border:'2px solid black',
+        overflowY:'scroll',
        }} className='mt-6 w-2/3 p-2 rounded-2xl min-h-[60vh] overflow-y-scroll'>
         <div className='grid grid-cols-6 text-center bg-[#D9D9D9] text-2xl py-2 rounded-t-xl'>
             <div className='col-span-2'>Token</div>
