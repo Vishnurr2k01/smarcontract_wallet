@@ -5,8 +5,12 @@ import { Link } from 'react-router-dom'
 function Navbar() {
   return (
     <div className='bg-[#231F20] p-4 flex justify-between fixed w-screen'>
+     
+     
         <div className=' '>
+          <Link to='/'>
          <img src='/assets/logo.png' />
+            </Link>
         </div>
         <div className='flex gap-6 items-center'>
             <h2 className='text-white text-3xl '>History</h2>

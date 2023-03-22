@@ -1,0 +1,34 @@
+import Safe from "@gnosis.pm/safe-apps-sdk";
+
+const providerUrl = "https://bridge.walletconnect.org";
+const safeSdk = await Safe.create({
+  ethereum: window.ethereum,
+});
+
+// Connect to a dApp using the WalletConnect provider URL
+const dapp = await safeSdk.addProvider("walletconnect", {
+  uri: providerUrl,
+});
+
+// Listen for events from the dApp
+dapp.on("accountsChanged", (accounts) => {
+  console.log("Accounts changed:", accounts);
+});
+
+dapp.on("chainChanged", (chainId) => {
+  console.log("Chain changed:", chainId);
+});
+
+dapp.on("disconnect", (error) => {
+  console.log("Disconnected:", error);
+});
+
+// Call dApp methods using the Safe SDK
+const accounts = await dapp.request({ method: "eth_accounts" });
+console.log("Accounts:", accounts);
+
+const balance = await dapp.request({
+  method: "eth_getBalance",
+  params: [accounts[0]],
+});
+console.log("Balance:", balance);
