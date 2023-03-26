@@ -6,12 +6,21 @@ import Safe, {
   SafeAccountConfig,
   SafeFactory,
 } from "@safe-global/safe-core-sdk";
-import { getSafeAddress } from "../services/Blockchain.services";
+import { connectToMetamask, getSafeAddress } from "../services/Blockchain.services";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Deploy() {
+  const navigate = useNavigate()
   const [connectedAccount] = useGlobalState("connectedAccount");
   const [safeAccount] = useGlobalState("safeAccounts");
   const [creatingSafe, setCreatingSafe] = useState(false);
+
+
+  useEffect(()=>{
+    if(safeAccount!=''){
+      // navigate('/')
+    }
+  },[safeAccount])
 
   const [accntConfig, setAccntConfig] = useState({
     owners: "",
@@ -89,8 +98,10 @@ function Deploy() {
 
   return (
     <div className="py-32 flex flex-col gap-12 items-center mx-auto w-fit justify-center">
-      Account: {connectedAccount.slice(0, 8)}...
+      
+      {connectedAccount!=='' ? <>
       <div className="flex mx-auto flex-col">
+      Account: {connectedAccount.slice(0, 8)}...
         { safeAccount ? '' : 
         <div className="flex flex-col gap-6 ">
           <label className="text-md" htmlFor="threshold">
@@ -136,7 +147,7 @@ function Deploy() {
           className="bg-blue-500 cursor-not-allowed text-white mt-6 font-bold w-fit mx-auto py-2 px-4 rounded"
           disabled={creatingSafe}
           // onClick={handleDeploy}
-          onClick={handleSubmit}
+          onClick={handleDeploy}
         >
           {safeAccount ? (
             safeAccount.slice(0, 8)
@@ -144,7 +155,10 @@ function Deploy() {
             <>{creatingSafe ? "Creating..." : "Deploy Smart Wallet"}</>
           )}
         </button>
-      </div>
+      </div></>: <>
+      
+      <button className="bg-blue-500 text-white text-2xl px-9 py-2 rounded-full" onClick={connectToMetamask}>Connect Wallet</button>
+      </>}
     </div>
   );
 }

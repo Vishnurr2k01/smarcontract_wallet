@@ -61,7 +61,6 @@ const Comp = ({isOpen,setConnect}:{isOpen:boolean,setConnect:any})=>{
   //   }
   // }
 
-    // Create a new instance of WalletConnectProvider and connect it to the dapp's Ethereum address and chain ID
     
 
   const connect = async () => {
