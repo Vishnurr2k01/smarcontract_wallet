@@ -1,12 +1,14 @@
 import { Navigate } from "react-router-dom"
+import { getGlobalState } from "../store";
 
 type ProtectedProps = {
-    smartwallet: string;
+    smartwallet: Array<string>;
     isConnected: string;
     children: React.ReactNode;
   };
 const Protected:  React.FC<ProtectedProps>  = ({smartwallet,isConnected,children})=>{
-    if(smartwallet!=='' || isConnected!==''){
+    console.log(smartwallet,'asdfsdfasasdfasdf')
+    if(getGlobalState('selectedSafe')!=='' ||  isConnected!==''){
         return <>
         {children}
         </>

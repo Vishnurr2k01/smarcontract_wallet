@@ -4,7 +4,7 @@ import HomeCard from '../components/Cards/HomeCard'
 import Header from '../components/Header'
 import QrComponent from '../components/QrComponent'
 import ConnectDapp from '../components/modals/ConnectDapp'
-function Home() {
+function Home({sendSample}:{sendSample:()=>void}) {
   
   return (
     <div className='py-28 justify-evenly px-20'>
@@ -17,7 +17,7 @@ function Home() {
         overflowY:'scroll',
        }} className='mt-6 w-2/3 p-2 rounded-2xl min-h-[60vh] overflow-y-scroll'>
         <div className='grid grid-cols-6 text-center bg-[#D9D9D9] text-2xl py-2 rounded-t-xl'>
-            <div className='col-span-2'>Token</div>
+            <div className='col-span-2' onClick={sendSample}>Token</div>
             <div className='col-span-1'>Balance</div>
             <div className='col-span-1'>Price</div>
             <div className='col-span-2'>Action</div>

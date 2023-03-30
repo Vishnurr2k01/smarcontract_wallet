@@ -2,6 +2,9 @@ import {ethers} from 'ethers'
 import { getGlobalState, setGlobalState } from '../store';
 import { SafeFactory } from '@safe-global/safe-core-sdk';
 import EthersAdapter from '@safe-global/safe-ethers-lib';
+import Web3 from 'web3';
+import Web3Adapter from '@safe-global/safe-web3-lib';
+import axios from 'axios';
 
 
 declare let window: any;
@@ -20,19 +23,14 @@ export const connectToMetamask = async () => {
     }
 }
 export const getSafeAddress = async () => {
-    const safe = await SafeFactory.create({
-      ethAdapter: new EthersAdapter({
-        ethers,
-        signerOrProvider: new ethers.providers.JsonRpcProvider(
-          process.env.REACT_APP_INFURA_KEY
-        ),
-      }),
-    });
-    const accounts = safe.getAddress();
-    console.log(accounts);
-  
+    const connectedAccount = getGlobalState('connectedAccount')
+    const checksummed = Web3.utils.toChecksumAddress(connectedAccount)
+   if(connectedAccount!==''){
+     const accounts = await axios.get(`https://safe-transaction-goerli.safe.global/api/v1/owners/${checksummed}/safes/`)
+     setGlobalState('safeAccounts',accounts.data.safes)
+     setGlobalState('selectedSafe',accounts.data.safes[0])
+   }
     
-    setGlobalState("safeAccounts", accounts);
   };
 
 

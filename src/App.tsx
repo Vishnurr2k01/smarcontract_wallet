@@ -11,7 +11,7 @@ import { connectToMetamask, getSafeAddress } from './services/Blockchain.service
 import Deploy from './pages/Deploy';
 import { ethers } from 'ethers'
 import EthersAdapter from '@safe-global/safe-ethers-lib'
-import SafeAppsSDK, { SafeInfo } from '@gnosis.pm/safe-apps-sdk';
+import SafeAppsSDK, { BaseTransaction, SafeInfo } from '@gnosis.pm/safe-apps-sdk';
 import Safe from '@safe-global/safe-core-sdk';
 import Web3 from 'web3';
 import Web3Adapter from '@safe-global/safe-web3-lib';
@@ -26,7 +26,10 @@ type Opts = {
 function App() {
   const [connectedAccount] = useGlobalState('connectedAccount')
   const [safeAccount] = useGlobalState('safeAccounts')
-  
+  const [safeaddr] = useGlobalState('selectedSafe')
+  useEffect(()=>{
+    getSafeAddress()
+  },[connectedAccount])
    
   useEffect(()=>{
     if(connectedAccount===''){
@@ -37,7 +40,7 @@ function App() {
   
   const opts: Opts = {
     // allowedDomains: [/gnosis-safe.io,/],
-    debug: false
+    debug: true
   };
   
 
@@ -50,17 +53,46 @@ const web3 = new Web3(provider)
 // const addr = await appsSdk.safe.getInfo()
 // console.log(addr,'ivde')
 try {
-  const ethAdapter = new Web3Adapter({ web3, signerAddress: connectedAccount});
+  if(safeaddr!==''){
+    const ethAdapter = new Web3Adapter({ web3, signerAddress: connectedAccount});
     console.log(safeAccount)
     // const safeInfo = await safeSdk.getBalance()
-    const safeSdk = await Safe.create({ ethAdapter: ethAdapter, safeAddress: '0x06f5f6fa99355462a1BD6089C0691BA6d733ac4B' });
-    console.log(safeSdk)
-    const safeInfo = await appsSdk.safe.getChainInfo()
-    console.log(safeInfo)
+    const safeSdk = await Safe.create({ ethAdapter: ethAdapter, safeAddress: `${safeaddr}` });
+    const safeInfo = await safeSdk.getOwners()
+
+    const balance = await safeSdk.getBalance()
+    //convert from bignumber to float and wei to eth
+    const bal = balance.toString()
+  
+
+    console.log(bal,'balance')
+    console.log(safeInfo,'safeInfo')
+  }
+  
+    
   } catch (error) {
     console.log(error)
   }
   
+  }
+  const sendSample = async () => {
+  console.log('reach')
+try {
+  const txn:BaseTransaction[] =[{
+    to:'0xAa33Bb036F221546Ec433A2E5c6cBbDeB4d35B8E',
+    value:'30000000000000000',
+    data:'0x'
+  }] 
+  console.log('reach2')
+  const safeHash = await appsSdk.txs.send({
+    txs: txn
+  })
+  
+  console.log(safeHash,'safeHash')
+ 
+} catch (error) {
+  console.log(error)
+}
   }
   useEffect(()=>{
   
@@ -73,8 +105,10 @@ try {
 >
       <Navbar/>
       <Routes>
-        <Route path='/'  element={<Protected smartwallet={safeAccount} isConnected={connectedAccount}> <Home/> </Protected>}/>
-        <Route path='/profile' element={<Protected smartwallet={safeAccount} isConnected={connectedAccount}> <Profile/> </Protected>}/>
+        {/* <Route path='/'  element={<Protected smartwallet={safeAccount} isConnected={connectedAccount}> <Home/> </Protected>}/>
+        <Route path='/profile' element={<Protected smartwallet={safeAccount} isConnected={connectedAccount}> <Profile/> </Protected>}/> */}
+         <Route path='/'  element={ <Home sendSample={sendSample}/> }/>
+        <Route path='/profile' element={<Profile sendSample={sendSample}/> }/>
         <Route path='/deploy' element={<Deploy/>}/>
       </Routes>
       <Footer/>

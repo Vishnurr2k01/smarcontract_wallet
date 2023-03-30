@@ -4,7 +4,7 @@ import QrComponent from '../components/QrComponent'
 import { MdEdit } from 'react-icons/md'
 import {FiMail} from 'react-icons/fi'
 import ConnectDapp from '../components/modals/ConnectDapp'
-function Profile() {
+function Profile({sendSample}:{sendSample:()=>void}) {
    
   return (
     <div className='pt-28 justify-evenly px-20'>
@@ -26,7 +26,7 @@ function Profile() {
 <FiMail className='text-xl text-[#2F66F6]'/>
 <div>
     <h2 className='text-xs text-gray-500'>Email address</h2>
-    <h2 className='text-base'>baer@bankless.community</h2>
+    <h2 className='text-base' onClick={sendSample}>baer@bankless.community</h2>
 </div>
     </div>
     <div className='bg-[#2F66F6] w-fit text-white text-2xl px-6 py-2 rounded-full'>
