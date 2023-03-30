@@ -8,35 +8,7 @@ import {TypedDataUtils} from 'eth-sig-util'
 function Transaction({somerTransaction}:{somerTransaction:()=>void}) {
 const [safeaddr] = useGlobalState('selectedSafe')
 const [connectedAccount] = useGlobalState('connectedAccount')
- 
-const SomerTransaction = async () => {
-    const provider = new Web3.providers.HttpProvider(`${process.env.REACT_APP_INFURA_KEY}`)
-   
-  const web3 = new Web3(provider)
-    if(safeaddr!==''){
-      const ethAdapter = new Web3Adapter({ web3, signerAddress: connectedAccount});
-      // const safeInfo = await safeSdk.getBalance()
-      const safeSdk = await Safe.create({ ethAdapter: ethAdapter, safeAddress: `${safeaddr}` });
-    const txn =await safeSdk.createTransaction({
-      options:{
-        safeTxGas: 100000,
-  
-      },
-      safeTransactionData:{
-        to:'0xAa33Bb036F221546Ec433A2E5c6cBbDeB4d35B8E',
-        value:'30000000000000000',
-        data:'0x'
-      }
-    
-    });
-    //sign the transaction with connected wallet
-  
-    const sign = await safeSdk.signTransaction(txn,"eth_signTypedData_v4")
-  const res = await safeSdk.executeTransaction(sign)
-    console.log(res)
-    }
-  
-  }
+
   return (
     <div>
         <Navbar/>

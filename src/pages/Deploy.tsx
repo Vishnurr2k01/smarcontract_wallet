@@ -43,7 +43,7 @@ function Deploy() {
 
   const signer = new ethers.Wallet(
   //some dummy private key
-    "0x8a1820a4a146ea2f08502f46cc62f3b234d43a5beb3879432017eba49ea7f9f7",
+    `${process.env.REACT_APP_PRIVATE_KEY}}`,
     provider
   );
   const ethAdapter = new EthersAdapter({ ethers, signerOrProvider: signer });
