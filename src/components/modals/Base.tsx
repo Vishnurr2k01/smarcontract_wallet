@@ -2,8 +2,10 @@ import React from 'react'
 import Modal from 'react-modal'
 import './modal.css'
 function Simple({children,isOpen}:{children:any;isOpen:boolean}) {
+  Modal.setAppElement('#root')
   return (
   <Modal  contentLabel="Modal"
+  
   className={{
     base: 'modal-base',
     afterOpen: 'modal-base_after-open',

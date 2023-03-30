@@ -2,13 +2,15 @@ import React from 'react'
 import {BiSearchAlt} from 'react-icons/bi'
 import ConnectDapp from './modals/ConnectDapp'
 import Actions from './modals/Actions'
+import { useGlobalState } from '../store'
 function Header() {
   const [connect,setConnect] = React.useState(false)
+  const [bal] = useGlobalState('balance')
   return (
     <div className='w-2/3 '>
     <div className=''>
          <h3 className='text-[#11183C] text-sm'>Total Balance</h3>
-         <h2 className='text-5xl font-semibold'>$15.1</h2>
+         <h2 className='text-5xl font-semibold'>{bal!=='' ? Number(bal)/10**18 : 0}  ETH</h2>
      </div>
      <div className='mt-8 flex ml-12 justify-between items-center mr-12'>
          <div className='bg-[#2F66F6] cursor-pointer text-white text-2xl w-fit py-1 px-2 rounded-full' onClick={()=>setConnect(true)}>Connect a Dapp</div>

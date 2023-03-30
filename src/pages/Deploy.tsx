@@ -91,7 +91,34 @@ function Deploy() {
             {safeAccount ? (
               ""
             ) : (
-              <div className="flex flex-col gap-6 ">
+              ''
+            )}
+            
+            <button
+              className="bg-blue-500 cursor-not-allowed text-white mt-6 font-bold w-fit mx-auto py-2 px-4 rounded"
+              disabled={creatingSafe}
+              // onClick={handleDeploy}
+              onClick={handleDeploy}
+            >
+              {safeAccount ? (
+                getGlobalState('selectedSafe').slice(0,12)
+              ) : (
+                <>{creatingSafe ? "Creating..." : "Deploy Smart Wallet"}</>
+              )}
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <button
+            className="bg-blue-500 text-white text-2xl px-9 py-2 rounded-full"
+            onClick={connectToMetamask}
+          >
+            Connect Wallet
+          </button>
+        </>
+      )}
+      <div className="flex flex-col gap-6 ">
                 <label className="text-md" htmlFor="threshold">
                   Owners
                 </label>
@@ -130,31 +157,6 @@ function Deploy() {
                   className=" w-80 h-8 text-md p-2 shadow-xl "
                 />
               </div>
-            )}
-            <button
-              className="bg-blue-500 cursor-not-allowed text-white mt-6 font-bold w-fit mx-auto py-2 px-4 rounded"
-              disabled={creatingSafe}
-              // onClick={handleDeploy}
-              onClick={handleDeploy}
-            >
-              {safeAccount ? (
-                getGlobalState('selectedSafe').slice(0,12)
-              ) : (
-                <>{creatingSafe ? "Creating..." : "Deploy Smart Wallet"}</>
-              )}
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <button
-            className="bg-blue-500 text-white text-2xl px-9 py-2 rounded-full"
-            onClick={connectToMetamask}
-          >
-            Connect Wallet
-          </button>
-        </>
-      )}
       <button
         className="bg-blue-500 cursor-not-allowed text-white mt-6 font-bold w-fit mx-auto py-2 px-4 rounded"
         disabled={creatingSafe}
